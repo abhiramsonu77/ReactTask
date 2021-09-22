@@ -1,35 +1,28 @@
-import React , { useEffect, useState } from "react";
-import axios from "axios";
-function ViewItem() {
-        const [state, setState] = useState([]);
-        useEffect(() => {
-            axios.get("http://localhost:5000/item").then((res) => {
-                setState(res.data);
-                console.log(res.data);
-            });
-        }, []);
+import React from "react";
+function Items(props) {
     return(
         <div className="ViewItem">
             <table>
+                <tbody>
                 <tr>
                     <th>Id</th>
                     <th>Item Name</th>
                     <th>Item Price</th>
                 </tr>
-                <tr>
-                {state.map((item) => {
-							return (
-								<tr>
-									<td>{item.itemId}</td>
-									<td>{item.itemName}</td>
-									<td>{item.itemPrice}</td>
-								</tr>
-							);
-						})}
-                </tr>
+                {props.Items.map((item) => {
+								return (
+									<tr>
+										<td>{item.id}</td>
+										<td>{item.itemName}</td>
+										<td>{item.itemPrice}</td>
+										
+									</tr>
+								);
+							})}
+                </tbody>
             </table>
         </div>
     )
 }
 
-export default ViewItem;
+export default Items;

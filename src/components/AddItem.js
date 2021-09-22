@@ -1,65 +1,64 @@
-import React, { Component } from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
-class AddItem extends Component {
-    constructor(props){
-        super(props)
+function AddItem() {
 
-        this.state = {
-            itemId:'',
+        const [item, setItem] = useState({
+            id:'',
             itemName:'',
             itemPrice:''
-        }
-    }
+        });
 
-    inputHandler = e => {
-        this.setState({[e.target.name]:e.target.value})
-    }
-    submitHandler = e =>{
-        e.preventDefault()
-        console.log(this.state);
-        axios.post("http://localhost:5000/item",this.state)
+    function inputHandler(e) {
+        setItem({...item, [e.target.name]:e.target.value})
+    };
+    function submitHandler(e){
+        e.preventDefault();
+        const {
+            id,
+            itemName,
+            itemPrice
+        } = item
+        console.log(item);
+        axios.post("http://localhost:5000/items",item)
             .then (response =>{
                 console.log(response)
             })
             .catch(error =>{
                 console.log(error)
             })
-    }
-    render() {
-        const {itemId, itemName, itemPrice} = this.state
+    };
         return (
             <div>
-                <form onSubmit={this.submitHandler}>
+                <form onSubmit={submitHandler}>
                     <input 
                     type = "text" 
-                    name ="itemId"
+                    name ="id"
                     placeholder = "item id" 
-                    value = {itemId} 
-                    onChange={this.inputHandler} 
+                    value = {item.id} 
+                    onChange={inputHandler} 
                     />
 
                     <input 
                     type = "text" 
                     name ="itemName"
                     placeholder = "itemname" 
-                    value = {itemName} 
-                    onChange={this.inputHandler}
+                    value = {item.itemName} 
+                    onChange={inputHandler}
                     />
 
                     <input 
                     type = "text" 
                     name ="itemPrice"
                     placeholder = "item price" 
-                    value = {itemPrice} 
-                    onChange = {this.inputHandler}
+                    value = {item.itemPrice} 
+                    onChange = {inputHandler}
                     />
 
                     <button type= "submit">Submit</button>
                 </form>
             </div>
         )
-    }
 }
 
 export default AddItem
