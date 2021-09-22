@@ -7,6 +7,7 @@ import {
 import './App.css';
 import AddItem from "./components/AddItem";
 import ItemList from "./components/item";
+import Update from "./components/UpdateItem"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
 				<Switch>
 					<Route path="/add" exact component={AddItem} />
 					<Route path="/view" component={ItemList} />
+          <Route path="/update/:id" component={Update} />
 				</Switch>
 			</Router>
     </div>

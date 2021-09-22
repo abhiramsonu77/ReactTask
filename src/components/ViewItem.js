@@ -1,4 +1,7 @@
 import React from "react";
+import Delete from "./DeleteItem";
+import { Link } from "react-router-dom";
+
 function Items(props) {
     return(
         <div className="ViewItem">
@@ -8,6 +11,8 @@ function Items(props) {
                     <th>Id</th>
                     <th>Item Name</th>
                     <th>Item Price</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 </tr>
                 {props.Items.map((item) => {
 								return (
@@ -15,7 +20,14 @@ function Items(props) {
 										<td>{item.id}</td>
 										<td>{item.itemName}</td>
 										<td>{item.itemPrice}</td>
-										
+										<td>
+                                        <Link to={"/update/" + item.id}>
+												<button>update</button>
+											</Link>
+                                        </td>
+                                        <td>
+                                            <Delete item={item} userList={props.userList}></Delete>
+                                            </td>
 									</tr>
 								);
 							})}
