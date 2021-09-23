@@ -1,11 +1,13 @@
 import React from "react";
 import Delete from "./DeleteItem";
 import { Link } from "react-router-dom";
+import "../style/style.css";
 
 function Items(props) {
     return(
-        <div className="ViewItem">
-            <table>
+        <div>
+            <div>
+            <table className="viewtable">
                 <tbody>
                 <tr>
                     <th>Id</th>
@@ -22,17 +24,18 @@ function Items(props) {
 										<td>{item.itemPrice}</td>
 										<td>
                                         <Link to={"/update/" + item.id}>
-												<button>update</button>
+												<button className="updtbtn">Update</button>
 											</Link>
                                         </td>
                                         <td>
-                                            <Delete item={item} userList={props.userList}></Delete>
+                                            <Delete item={item} itemList={props.itemList}></Delete>
                                             </td>
 									</tr>
 								);
 							})}
                 </tbody>
             </table>
+            </div>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import "../style/style.css";
 
 function Delete(props) {
     
@@ -6,6 +7,7 @@ function Delete(props) {
 		fetch(`http://localhost:5000/items/${id}`, {
 			method: "DELETE",
 		}).then((result) => {
+			console.log(props.itemList);
 			props.itemList();
 			result.json().then((resp) => {
 				console.log(resp);
@@ -14,7 +16,7 @@ function Delete(props) {
 	}
 	return (
 		<div>
-			<button onClick={() => deleteItem(props.item.id)}>Delete</button>
+			<button onClick={() => deleteItem(props.item.id)} className="dltbtn">Delete</button>
 		</div>
 	);
 }

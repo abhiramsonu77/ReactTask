@@ -1,8 +1,11 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import "../style/style.css";
 function Update(props) {
-	const [data, setData] = useState([]);
+	let history = useHistory();
+	const [data, setData] = useState(null);
     const [item, setItem] = useState({
         id:'',
         itemName:'',
@@ -13,17 +16,25 @@ function Update(props) {
         setItem({...item, [e.target.name]:e.target.value})
     };
 
-	useEffect(async () => {
+	useEffect( () => {
+		async function fetchData(){
 		let result = await fetch(
 			"http://localhost:5000/items/" + props.match.params.id
 		);
 
 		result = await result.json();
 		setData(result);
+		}
+		fetchData();
 	}, []);
-
+	useEffect ( () =>{
+		if(data){
+			setItem(data)
+		}
+	},[data]);
 	async function updateitem(id) {
 		const {itemName,itemPrice} = item;
+		console.log(item);
 		const response = await fetch(`http://localhost:5000/items/${id}`, {
 			method: "PATCH",
 			headers: {
@@ -34,25 +45,40 @@ function Update(props) {
                 itemPrice
 			}),
 		});
+		history.push("/view");
+	}
+	if (!data){
+		return null;
 	}
 	return (
-		<div>
+		<div className="home">
+                <div className="box">
+                    <div className="section">
+						<h4>Update Item</h4>
+						<form className="inputform">
             <input 
                     type = "text" 
                     name ="itemName"
                     placeholder = "itemname" 
-                    value = {data.itemName} 
+                    defaultValue = {data.itemName} 
+					value = {item.itemName} 
                     onChange={inputHandler}
+					className="input"
                     />
 
                     <input 
                     type = "text" 
                     name ="itemPrice"
                     placeholder = "item price" 
-                    value = {data.itemPrice} 
+                    defaultValue = {data.itemPrice} 
+					value = {item.itemPrice}
                     onChange = {inputHandler}
+					className="input"
                     />
-			<button onClick={() => updateitem(data.id)}>Update</button>
+			<button onClick={() => updateitem(data.id)} className="addbtn">Update</button>
+				</form>
+				</div>
+			</div>
 		</div>
 	);
 }

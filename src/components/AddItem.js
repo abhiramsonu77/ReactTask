@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import axios from "axios";
-
+import { useHistory } from "react-router";
+import "../style/style.css";
 function AddItem() {
-
-        const [item, setItem] = useState({
-            id:'',
-            itemName:'',
-            itemPrice:''
-        });
+    let history = useHistory();
+    const [item, setItem] = useState({
+        id:'',
+        itemName:'',
+        itemPrice:''
+    });
 
     function inputHandler(e) {
         setItem({...item, [e.target.name]:e.target.value})
@@ -27,16 +28,21 @@ function AddItem() {
             .catch(error =>{
                 console.log(error)
             })
+
     };
         return (
-            <div>
-                <form onSubmit={submitHandler}>
+            <div className="home">
+                <div className="box">
+                    <div className="section">
+                        <h4>Add Item</h4>
+                <form onSubmit={submitHandler} className="inputform">
                     <input 
                     type = "text" 
                     name ="id"
                     placeholder = "item id" 
                     value = {item.id} 
                     onChange={inputHandler} 
+                    className="input"
                     />
 
                     <input 
@@ -45,6 +51,7 @@ function AddItem() {
                     placeholder = "itemname" 
                     value = {item.itemName} 
                     onChange={inputHandler}
+                    className="input"
                     />
 
                     <input 
@@ -53,10 +60,23 @@ function AddItem() {
                     placeholder = "item price" 
                     value = {item.itemPrice} 
                     onChange = {inputHandler}
+                    className="input"
                     />
 
-                    <button type= "submit">Submit</button>
+                    <button type= "submit" className="addbtn">Submit</button>
                 </form>
+                
+                    </div>
+                    <div className="xtra">
+                View Items <button
+						className="viewbtn"
+						onClick={() => {
+							history.push("/view");
+						}}>
+						Items 
+					</button>
+                    </div>
+                </div>
             </div>
         )
 }
