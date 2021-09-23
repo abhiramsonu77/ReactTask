@@ -19,7 +19,7 @@ function Update(props) {
 	useEffect( () => {
 		async function fetchData(){
 		let result = await fetch(
-			"http://localhost:5000/items/" + props.match.params.id
+			"https://abhiram-api-rest.herokuapp.com/items/" + props.match.params.id
 		);
 
 		result = await result.json();

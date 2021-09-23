@@ -21,7 +21,7 @@ function AddItem() {
             itemPrice
         } = item
         console.log(item);
-        axios.post("http://localhost:5000/items",item)
+        axios.post("https://abhiram-api-rest.herokuapp.com/items",item)
             .then (response =>{
                 console.log(response)
             })

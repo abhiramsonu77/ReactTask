@@ -4,7 +4,7 @@ import "../style/style.css";
 function Delete(props) {
     
 	function deleteItem(id) {
-		fetch(`http://localhost:5000/items/${id}`, {
+		fetch(`https://abhiram-api-rest.herokuapp.com/items/${id}`, {
 			method: "DELETE",
 		}).then((result) => {
 			console.log(props.itemList);

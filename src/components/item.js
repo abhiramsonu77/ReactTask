@@ -9,7 +9,7 @@ function ItemList() {
 	}, []);
 	function itemList() {
 		axios
-			.get("http://localhost:5000/items")
+			.get("https://abhiram-api-rest.herokuapp.com/items")
 			.then((result) => {
 				setItems(result.data);
 			})
